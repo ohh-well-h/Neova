@@ -1,0 +1,35 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+playwright-report/
+test-results/
+blob-report/
+supabase/.temp/
+supabase/.branches/
+.impeccable/
+neova-scaffold-tmp/
+
+# Local hosting and deployment state
+.vercel/
+.netlify/
+.wrangler/
+
+# Local credentials and signing material
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+*service-account*.json
+*credentials*.json

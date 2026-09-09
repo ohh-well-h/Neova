@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
+    />
+    <meta name="description" content="A private, stage-matched postpartum peer-support circle." />
+    <meta name="theme-color" content="#C6714A" />
+    <meta name="color-scheme" content="light" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Neova" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <title>%WEB_TITLE%</title>
+    <style id="expo-reset">
+      html,
+      body {
+        height: 100%;
+        background: #faf6f1;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+      }
+
+      ::selection {
+        color: #2e2a26;
+        background: #f2ddd0;
+      }
+
+      :focus-visible {
+        outline: 3px solid #9e5132;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>Neova needs JavaScript enabled to open your circle.</noscript>
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').catch(function () {
+            // Neova still works online when service worker registration is unavailable.
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
