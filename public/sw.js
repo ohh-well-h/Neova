@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'neova';
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const SHELL_CACHE = `${CACHE_PREFIX}-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}-runtime-${CACHE_VERSION}`;
 const CORE_FILES = [
@@ -78,6 +78,21 @@ async function navigationResponse(request) {
 }
 
 async function staticResponse(request) {
+  const shouldRefreshFromNetwork = request.destination === 'script' || request.destination === 'style';
+
+  if (shouldRefreshFromNetwork) {
+    try {
+      const response = await fetch(request);
+      if (response.ok) {
+        const cache = await caches.open(RUNTIME_CACHE);
+        await cache.put(request, response.clone());
+      }
+      return response;
+    } catch {
+      return (await caches.match(request)) || Response.error();
+    }
+  }
+
   const cached = await caches.match(request);
   if (cached) return cached;
 

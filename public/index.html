@@ -55,9 +55,23 @@
     <script>
       if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
         window.addEventListener('load', function () {
-          navigator.serviceWorker.register('/sw.js').catch(function () {
-            // Neova still works online when service worker registration is unavailable.
+          var hadController = Boolean(navigator.serviceWorker.controller);
+          var refreshing = false;
+
+          navigator.serviceWorker.addEventListener('controllerchange', function () {
+            if (!hadController || refreshing) return;
+            refreshing = true;
+            window.location.reload();
           });
+
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then(function (registration) {
+              return registration.update();
+            })
+            .catch(function () {
+              // Neova still works online when service worker registration is unavailable.
+            });
         });
       }
     </script>
